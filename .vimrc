@@ -26,6 +26,7 @@ Plugin 'vim-airline/vim-airline-themes'
 
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -45,13 +46,14 @@ let g:airline_powerline_fonts = 1
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 
+" Nerdtree configs
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
 colorscheme gruvbox
 set background=dark    " Setting dark mode
 
 filetype plugin indent on
-
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -59,3 +61,18 @@ set tabstop=4
 set shiftwidth=4
 " " On pressing tab, insert 4 spaces
 set expandtab
+
+" Set relative linenumbers
+set relativenumber
+
+" Hilight unwanted whitespaces
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Set line width hilight
+set colorcolumn=80
+autocmd FileType man wincmd L | vert resize 100
